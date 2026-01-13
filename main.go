@@ -105,7 +105,7 @@ func checkThresholds(stats *ServerStats) {
 	if stats.TotalMemory > 0 {
 		memoryPercent := float64(stats.UsedMemory) / float64(stats.TotalMemory) * 100
 		if memoryPercent > memoryThreshold {
-			fmt.Printf("Memory usage too high: %.0f%%\n", memoryPercent)
+			fmt.Printf("Memory usage too high: %d%%\n", int(memoryPercent))
 		}
 	}
 
@@ -123,7 +123,7 @@ func checkThresholds(stats *ServerStats) {
 		if networkPercent > networkThreshold {
 			availableBandwidthBytes := stats.NetBandwidth - stats.NetUsage
 			availableBandwidthMbits := float64(availableBandwidthBytes) / 1000000
-			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", availableBandwidthMbits)
+			fmt.Printf("Network bandwidth usage high: %d Mbit/s available\n", int(availableBandwidthMbits))
 		}
 	}
 }
