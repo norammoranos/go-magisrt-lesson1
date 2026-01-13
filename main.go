@@ -99,7 +99,7 @@ func parseStats(data string) (*ServerStats, error) {
 
 func checkThresholds(stats *ServerStats) {
 	if stats.LoadAverage > loadAvgThreshold {
-		fmt.Printf("Load Average is too high: %.1f\n", stats.LoadAverage)
+		fmt.Printf("Load Average is too high: %.0f\n", stats.LoadAverage)
 	}
 
 	if stats.TotalMemory > 0 {
@@ -114,7 +114,7 @@ func checkThresholds(stats *ServerStats) {
 		if diskPercent > diskThreshold {
 			freeDiskBytes := stats.TotalDisk - stats.UsedDisk
 			freeDiskMB := freeDiskBytes / (1024 * 1024)
-			fmt.Printf("Free disk space is too low: %d MB left\n", freeDiskMB)
+			fmt.Printf("Free disk space is too low: %d Mb left\n", freeDiskMB)
 		}
 	}
 
@@ -122,8 +122,8 @@ func checkThresholds(stats *ServerStats) {
 		networkPercent := float64(stats.NetUsage) / float64(stats.NetBandwidth) * 100
 		if networkPercent > networkThreshold {
 			availableBandwidthBytes := stats.NetBandwidth - stats.NetUsage
-			availableBandwidthMbits := float64(availableBandwidthBytes) * 8 / (1024 * 1024)
-			fmt.Printf("Network bandwidth usage is too high: %.0f Mbit/s available\n", availableBandwidthMbits)
+			availableBandwidthMbits := float64(availableBandwidthBytes) / 1000000
+			fmt.Printf("Network bandwidth usage high: %.0f Mbit/s available\n", availableBandwidthMbits)
 		}
 	}
 }
